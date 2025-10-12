@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXT TALENT ACADEMY - Cursos Online de Calidad, Producción y Mantenimiento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-card {
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .course-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .course-card:hover .course-overlay {
+            opacity: 1;
+        }
+        
+        .category-card {
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .instructor-card {
+            transition: all 0.3s ease;
+        }
+        
+        .instructor-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #6a11cb;
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .search-box {
+            border: 1px solid #6a11cb;
+            transition: all 0.3s;
+        }
+        
+        .search-box:focus-within {
+            box-shadow: 0 0 0 2px rgba(106, 17, 203, 0.2);
+        }
+        
+        .rating-stars {
+            color: #f59e0b;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .badge-bestseller {
+            background-color: #ffe799;
+            color: #593d00;
+        }
+        
+        .badge-new {
+            background-color: #c7f0ff;
+            color: #005a7a;
+        }
+        
+        .badge-popular {
+            background-color: #ffd1dc;
+            color: #7a0032;
+        }
+        
+        .badge-free {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .certificate-container {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+        }
+        
+        .certificate-frame {
+            border: 15px solid #f8f9fa;
+            border-radius: 10px;
+            background: white;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .certificate-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .logo-image {
+            height: 32px;
+            width: auto;
+        }
+        
+        /* Estilos para la validación de certificados */
+        .validation-result {
+            transition: all 0.3s ease;
+        }
+        
+        .valid-certificate {
+            background-color: #d1fae5;
+            border-left: 4px solid #10b981;
+        }
+        
+        .invalid-certificate {
+            background-color: #fee2e2;
+            border-left: 4px solid #ef4444;
+        }
+        
+        /* Estilos para el test vocacional */
+        .test-question {
+            transition: all 0.3s ease;
+        }
+        
+        .test-option {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .test-option:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .test-option.selected {
+            background-color: #e0e7ff;
+            border-color: #6366f1;
+        }
+        
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="flex items-center mr-10">
+                    <div class="bg-purple-600 w-8 h-8 rounded-md flex items-center justify-center mr-2">
+                        <i class="fas fa-graduation-cap text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold text-gray-800">NEXT TALENT ACADEMY</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Inicio</a>
+                    <a href="#categories" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Categorías</a>
+                    <a href="#courses" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Cursos</a>
+                    <a href="#certificate" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Certificación</a>
+                    <a href="#certificate-validation" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Validar Certificado</a>
+                    <a href="#career-test" class="nav-link text-gray-700 hover:text-purple-600 font-medium">Test Vocacional</a>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:flex items-center bg-white border border-gray-300 rounded-md px-3 py-2 w-64">
+                    <i class="fas fa-search text-gray-400 mr-2"></i>
+                    <input type="text" placeholder="Buscar cursos..." class="w-full focus:outline-none">
+                </div>
+                
+                <button onclick="scrollToContact()" class="bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-md transition pulse-animation">
+                    ¡Inscríbete Gratis!
+                </button>
+                
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                    <i class="fas fa-bars text-xl text-gray-700"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white px-4 py-4 border-t">
+            <div class="mb-4">
+                <div class="flex items-center bg-white border border-gray-300 rounded-md px-3 py-2">
+                    <i class="fas fa-search text-gray-400 mr-2"></i>
+                    <input type="text" placeholder="Buscar cursos..." class="w-full focus:outline-none">
+                </div>
+            </div>
+            <div class="space-y-3">
+                <a href="#home" class="block py-2 text-gray-700 hover:text-purple-600 font-medium">Inicio</a>
+                <a href="#categories" class="block py-2 text-gray-700 hover:text-purple-600 font-medium">Categorías</a>
+                <a href="#courses" class="block py-2 text-gray-700 hover:text-purple-600 font-medium">Cursos</a>
+                <a href="#certificate" class="block py-2 text-gray-700 hover:text-purple-600 font-medium">Certificación</a>
+                <a href="#certificate-validation" class="block py-2 text-gray-700 hover:text-purple-600 font-medium">Validar Certificado</a>
+                <a href="#career-test" class="block py-2 text-gray-700 hover:text-purple-600 font-medium">Test Vocacional</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section pt-24 pb-16 md:pt-32 md:pb-24">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">Potencia tu carrera con cursos especializados</h1>
+                    <p class="text-xl text-white mb-8">Aprende de expertos en Calidad, Producción, Mantenimiento y Gestión Empresarial con nuestra plataforma de aprendizaje online.</p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#courses" class="bg-white text-purple-600 hover:bg-gray-100 font-bold py-3 px-6 rounded-md text-center transition">
+                            Explorar Cursos
+                        </a>
+                        <button onclick="scrollToContact()" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-purple-600 font-bold py-3 px-6 rounded-md text-center transition">
+                            Inscríbete Gratis
+                        </button>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative" data-aos="fade-left">
+                    <div class="floating-element">
+                        <img src="https://cdn.pixabay.com/photo/2021/08/04/13/06/software-developer-6521720_1280.jpg" alt="Estudiante" class="rounded-lg shadow-lg">
+                    </div>
+                    <div class="absolute -top-4 -right-4 bg-yellow-400 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-lg">
+                        ¡OFERTA DE APERTURA!
+                    </div>
+                    <div class="absolute -bottom-4 -left-4 bg-green-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg">
+                        TODOS LOS CURSOS GRATIS
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Categorías de Cursos</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Explora nuestras áreas de especialización y encuentra el curso perfecto para tu desarrollo profesional.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Category 1 -->
+                <div class="category-card bg-purple-50 rounded-xl p-6 text-center" data-aos="fade-up">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-chart-bar text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Control de Calidad</h3>
+                    <p class="text-sm text-gray-600 mb-4">Sistemas de calidad, auditorías y mejora continua</p>
+                    <a href="#" class="text-purple-600 font-medium text-sm">12 cursos</a>
+                </div>
+                
+                <!-- Category 2 -->
+                <div class="category-card bg-blue-50 rounded-xl p-6 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-industry text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Producción</h3>
+                    <p class="text-sm text-gray-600 mb-4">Optimización de procesos y eficiencia operativa</p>
+                    <a href="#" class="text-blue-600 font-medium text-sm">10 cursos</a>
+                </div>
+                
+                <!-- Category 3 -->
+                <div class="category-card bg-green-50 rounded-xl p-6 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-tools text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Mantenimiento</h3>
+                    <p class="text-sm text-gray-600 mb-4">Estrategias de mantenimiento y gestión de activos</p>
+                    <a href="#" class="text-green-600 font-medium text-sm">7 cursos</a>
+                </div>
+                
+                <!-- Category 4 -->
+                <div class="category-card bg-yellow-50 rounded-xl p-6 text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">Gestión Empresarial</h3>
+                    <p class="text-sm text-gray-600 mb-4">Liderazgo, estrategia y administración</p>
+                    <a href="#" class="text-yellow-600 font-medium text-sm">5 cursos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Courses Section -->
+    <section id="courses" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-10">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Cursos Más Populares</h2>
+                    <p class="text-gray-600">Los cursos más solicitados por nuestros estudiantes</p>
+                </div>
+                <a href="#all-courses" class="text-purple-600 font-medium hover:text-purple-700 hidden md:block">Ver todos los cursos <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Course 1 - Inspector de Calidad -->
+                <div class="course-card bg-white rounded-lg overflow-hidden" data-aos="fade-up">
+                    <div class="h-40 bg-purple-600 relative">
+                        <img src="images/image1.webp" alt="Inspector de Calidad" class="w-full h-full object-cover">
+                        <span class="badge badge-bestseller absolute top-3 left-3">MÁS VENDIDO</span>
+                        <span class="badge badge-free absolute top-3 right-3">GRATIS</span>
+                        <div class="absolute bottom-3 left-3">
+                            <span class="text-white font-medium">Control de Calidad</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Inspector de Calidad Certificado</h3>
+                        <p class="text-sm text-gray-600 mb-3">Aprende técnicas de inspección, muestreo y control de calidad para productos y procesos.</p>
+                        <div class="flex items-center mb-2">
+                            <span class="text-yellow-500 font-bold mr-1">4.8</span>
+                            <div class="rating-stars mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm">(1,245)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-lg font-bold text-green-600">GRATIS</span>
+                            <button onclick="enrollCourse('Inspector de Calidad Certificado')" class="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-2 px-4 rounded transition">
+                                Inscribirse
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-overlay">
+                        <h4 class="font-bold text-lg mb-2">Inspector de Calidad Certificado</h4>
+                        <p class="text-sm mb-3">Duración: 6 semanas</p>
+                        <p class="text-sm mb-3">Incluye certificación internacional</p>
+                        <ul class="text-sm list-disc pl-4 mb-4">
+                            <li>Técnicas de inspección visual</li>
+                            <li>Muestreo estadístico</li>
+                            <li>Interpretación de planos</li>
+                            <li>Uso de instrumentos de medición</li>
+                        </ul>
+                        <button onclick="enrollCourse('Inspector de Calidad Certificado')" class="bg-white text-purple-600 font-medium py-2 px-4 rounded mt-auto">
+                            Inscribirse Gratis
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Course 2 - Procesos de Manufactura -->
+                <div class="course-card bg-white rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-40 bg-blue-600 relative">
+                        <img src="images/manufactura1.jpg" alt="Procesos de Manufactura" class="w-full h-full object-cover">
+                        <span class="badge badge-popular absolute top-3 left-3">POPULAR</span>
+                        <span class="badge badge-free absolute top-3 right-3">GRATIS</span>
+                        <div class="absolute bottom-3 left-3">
+                            <span class="text-white font-medium">Producción</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Procesos de Manufactura</h3>
+                        <p class="text-sm text-gray-600 mb-3">Domina los principales procesos de fabricación y optimización de líneas de producción.</p>
+                        <div class="flex items-center mb-2">
+                            <span class="text-yellow-500 font-bold mr-1">4.9</span>
+                            <div class="rating-stars mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm">(892)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-lg font-bold text-green-600">GRATIS</span>
+                            <button onclick="enrollCourse('Procesos de Manufactura')" class="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-2 px-4 rounded transition">
+                                Inscribirse
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-overlay">
+                        <h4 class="font-bold text-lg mb-2">Procesos de Manufactura</h4>
+                        <p class="text-sm mb-3">Duración: 8 semanas</p>
+                        <p class="text-sm mb-3">Incluye casos prácticos reales</p>
+                        <ul class="text-sm list-disc pl-4 mb-4">
+                            <li>Procesos de conformado</li>
+                            <li>Mecanizado y soldadura</li>
+                            <li>Automatización industrial</li>
+                            <li>Gestión de líneas de producción</li>
+                        </ul>
+                        <button onclick="enrollCourse('Procesos de Manufactura')" class="bg-white text-purple-600 font-medium py-2 px-4 rounded mt-auto">
+                            Inscribirse Gratis
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Course 3 - Mantenimiento Autónomo -->
+                <div class="course-card bg-white rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-40 bg-green-600 relative">
+                        <img src="images/mantenimiento1.webp" alt="Mantenimiento Autónomo" class="w-full h-full object-cover">
+                        <span class="badge badge-new absolute top-3 left-3">NUEVO</span>
+                        <span class="badge badge-free absolute top-3 right-3">GRATIS</span>
+                        <div class="absolute bottom-3 left-3">
+                            <span class="text-white font-medium">Mantenimiento</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800 mb-2">Mantenimiento Autónomo</h3>
+                        <p class="text-sm text-gray-600 mb-3">Implementa estrategias de mantenimiento autónomo para aumentar la disponibilidad de equipos.</p>
+                        <div class="flex items-center mb-2">
+                            <span class="text-yellow-500 font-bold mr-1">4.7</span>
+                            <div class="rating-stars mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm">(567)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-lg font-bold text-green-600">GRATIS</span>
+                            <button onclick="enrollCourse('Mantenimiento Autónomo')" class="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-2 px-4 rounded transition">
+                                Inscribirse
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-overlay">
+                        <h4 class="font-bold text-lg mb-2">Mantenimiento Autónomo</h4>
+                        <p class="text-sm mb-3">Duración: 5 semanas</p>
+                        <p class="text-sm mb-3">Basado en metodología TPM</p>
+                        <ul class="text-sm list-disc pl-4 mb-4">
+                            <li>Pilares del TPM</li>
+                            <li>Limpieza e inspección</li>
+                            <li>Lubricación y ajustes</li>
+                            <li>Autonomía operador-máquina</li>
+                        </ul>
+                        <button onclick="enrollCourse('Mantenimiento Autónomo')" class="bg-white text-purple-600 font-medium py-2 px-4 rounded mt-auto">
+                            Inscribirse Gratis
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Courses Section -->
+    <section id="all-courses" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-10">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Todos Nuestros Cursos</h2>
+                    <p class="text-gray-600">Amplía tus conocimientos con nuestra amplia oferta formativa</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Course 4 - Lean Six Sigma -->
+                <div class="course-card bg-white rounded-lg overflow-hidden" data-aos="fade-up">
+                    <div class="h-32 bg-indigo-600 relative">
+                        <img src="images/lean1.jpg" alt="Lean Six Sigma Green Belt" class="w-full h-full object-cover">
+                        <span class="badge badge-free absolute top-3 right-3">GRATIS</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-2">Lean Six Sigma Green Belt</h3>
+                        <p class="text-sm text-gray-600 mb-3">Metodología para mejora de procesos y reducción de defectos.</p>
+                        <div class="flex items-center mb-2">
+                            <span class="text-yellow-500 font-bold mr-1">4.6</span>
+                            <div class="rating-stars mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm">(723)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-lg font-bold text-green-600">GRATIS</span>
+                            <button onclick="enrollCourse('Lean Six Sigma Green Belt')" class="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-1 px-3 rounded transition">
+                                Inscribirse
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-overlay">
+                        <h4 class="font-bold text-lg mb-2">Lean Six Sigma Green Belt</h4>
+                        <p class="text-sm mb-3">Duración: 10 semanas</p>
+                        <p class="text-sm mb-3">Certificación internacional incluida</p>
+                        <ul class="text-sm list-disc pl-4 mb-4">
+                            <li>Metodología DMAIC</li>
+                            <li>Herramientas estadísticas</li>
+                            <li>Análisis de causa raíz</li>
+                            <li>Proyecto de mejora real</li>
+                        </ul>
+                        <button onclick="enrollCourse('Lean Six Sigma Green Belt')" class="bg-white text-purple-600 font-medium py-2 px-4 rounded mt-auto">
+                            Inscribirse Gratis
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Course 5 - 5S y Gestión Visual -->
+                <div class="course-card bg-white rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-32 bg-red-600 relative">
+                        <img src="images/image7.jpg" alt="5S y Gestión Visual" class="w-full h-full object-cover">
+                        <span class="badge badge-free absolute top-3 right-3">GRATIS</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-2">5S y Gestión Visual</h3>
+                        <p class="text-sm text-gray-600 mb-3">Implementa metodología 5S para organizar y mejorar espacios de trabajo.</p>
+                        <div class="flex items-center mb-2">
+                            <span class="text-yellow-500 font-bold mr-1">4.8</span>
+                            <div class="rating-stars mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm">(1,034)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-lg font-bold text-green-600">GRATIS</span>
+                            <button onclick="enrollCourse('5S y Gestión Visual')" class="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-1 px-3 rounded transition">
+                                Inscribirse
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-overlay">
+                        <h4 class="font-bold text-lg mb-2">5S y Gestión Visual</h4>
+                        <p class="text-sm mb-3">Duración: 4 semanas</p>
+                        <p class="text-sm mb-3">Incluye taller práctico virtual</p>
+                        <ul class="text-sm list-disc pl-4 mb-4">
+                            <li>Seiri - Clasificación</li>
+                            <li>Seiton - Orden</li>
+                            <li>Seiso - Limpieza</li>
+                            <li>Seiketsu - Estandarización</li>
+                            <li>Shitsuke - Disciplina</li>
+                        </ul>
+                        <button onclick="enrollCourse('5S y Gestión Visual')" class="bg-white text-purple-600 font-medium py-2 px-4 rounded mt-auto">
+                            Inscribirse Gratis
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Course 6 - Logística y Cadena de Suministro -->
+                <div class="course-card bg-white rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-32 bg-teal-600 relative">
+                        <img src="images/image8.jpg" alt="Logística y Cadena de Suministro" class="w-full h-full object-cover">
+                        <span class="badge badge-free absolute top-3 right-3">GRATIS</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-2">Logística y Cadena de Suministro</h3>
+                        <p class="text-sm text-gray-600 mb-3">Optimiza procesos logísticos y gestión de la cadena de suministro.</p>
+                        <div class="flex items-center mb-2">
+                            <span class="text-yellow-500 font-bold mr-1">4.7</span>
+                            <div class="rating-stars mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm">(658)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-lg font-bold text-green-600">GRATIS</span>
+                            <button onclick="enrollCourse('Logística y Cadena de Suministro')" class="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-1 px-3 rounded transition">
+                                Inscribirse
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-overlay">
+                        <h4 class="font-bold text-lg mb-2">Logística y Cadena de Suministro</h4>
+                        <p class="text-sm mb-3">Duración: 7 semanas</p>
+                        <p class="text-sm mb-3">Enfoque en supply chain management</p>
+                        <ul class="text-sm list-disc pl-4 mb-4">
+                            <li>Gestión de inventarios</li>
+                            <li>Planificación de demanda</li>
+                            <li>Transporte y distribución</li>
+                            <li>Indicadores de desempeño logístico</li>
+                        </ul>
+                        <button onclick="enrollCourse('Logística y Cadena de Suministro')" class="bg-white text-purple-600 font-medium py-2 px-4 rounded mt-auto">
+                            Inscribirse Gratis
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Course 7 - Seguridad Industrial -->
+                <div class="course-card bg-white rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-32 bg-amber-600 relative">
+                        <img src="images/image9.jpg" alt="Seguridad Industrial y Salud Ocupacional" class="w-full h-full object-cover">
+                        <span class="badge badge-free absolute top-3 right-3">GRATIS</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-2">Seguridad Industrial y Salud Ocupacional</h3>
+                        <p class="text-sm text-gray-600 mb-3">Implementa sistemas de seguridad y cumple con normativas.</p>
+                        <div class="flex items-center mb-2">
+                            <span class="text-yellow-500 font-bold mr-1">4.5</span>
+                            <div class="rating-stars mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm">(892)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-lg font-bold text-green-600">GRATIS</span>
+                            <button onclick="enrollCourse('Seguridad Industrial y Salud Ocupacional')" class="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-1 px-3 rounded transition">
+                                Inscribirse
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-overlay">
+                        <h4 class="font-bold text-lg mb-2">Seguridad Industrial y Salud Ocupacional</h4>
+                        <p class="text-sm mb-3">Duración: 6 semanas</p>
+                        <p class="text-sm mb-3">Cumplimiento normativo OSHA</p>
+                        <ul class="text-sm list-disc pl-4 mb-4">
+                            <li>Identificación de riesgos</li>
+                            <li>Equipos de protección personal</li>
+                            <li>Procedimientos de trabajo seguro</li>
+                            <li>Gestión de emergencias</li>
+                        </ul>
+                        <button onclick="enrollCourse('Seguridad Industrial y Salud Ocupacional')" class="bg-white text-purple-600 font-medium py-2 px-4 rounded mt-auto">
+                            Inscribirse Gratis
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Course 8 - Curso Intensivo de Calidad -->
+                <div class="course-card bg-white rounded-lg overflow-hidden" data-aos="fade-up">
+                    <div class="h-32 bg-purple-600 relative">
+                        <img src="images/image10.jpg" alt="Curso Intensivo de Calidad" class="w-full h-full object-cover">
+                        <span class="badge badge-new absolute top-3 left-3">NUEVO</span>
+                        <span class="badge badge-free absolute top-3 right-3">GRATIS</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-2">Curso Intensivo de Calidad</h3>
+                        <p class="text-sm text-gray-600 mb-3">ISO 9001:2015, acciones correctivas, controles de procesos, KPIs y detección de desviaciones.</p>
+                        <div class="flex items-center mb-2">
+                            <span class="text-yellow-500 font-bold mr-1">4.9</span>
+                            <div class="rating-stars mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm">(432)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-lg font-bold text-green-600">GRATIS</span>
+                            <button onclick="enrollCourse('Curso Intensivo de Calidad')" class="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-1 px-3 rounded transition">
+                                Inscribirse
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-overlay">
+                        <h4 class="font-bold text-lg mb-2">Curso Intensivo de Calidad</h4>
+                        <p class="text-sm mb-3">Duración: 8 semanas</p>
+                        <p class="text-sm mb-3">Certificación en gestión de calidad</p>
+                        <ul class="text-sm list-disc pl-4 mb-4">
+                            <li>ISO 9001:2015</li>
+                            <li>Manejo de acciones correctivas</li>
+                            <li>Controles de procesos</li>
+                            <li>Manejo de KPIs</li>
+                            <li>Detección de desviaciones</li>
+                        </ul>
+                        <button onclick="enrollCourse('Curso Intensivo de Calidad')" class="bg-white text-purple-600 font-medium py-2 px-4 rounded mt-auto">
+                            Inscribirse Gratis
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Course 9 - Sistema de Gestión de Calidad ISO 9001:2015 -->
+                <div class="course-card bg-white rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-32 bg-blue-600 relative">
+                        <img src="images/image11.jpg" alt="Sistema de Gestión de Calidad ISO 9001:2015" class="w-full h-full object-cover">
+                        <span class="badge badge-new absolute top-3 left-3">NUEVO</span>
+                        <span class="badge badge-free absolute top-3 right-3">GRATIS</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-2">Sistema de Gestión de Calidad ISO 9001:2015</h3>
+                        <p class="text-sm text-gray-600 mb-3">Domina los requisitos de la norma ISO 9001:2015 y su implementación.</p>
+                        <div class="flex items-center mb-2">
+                            <span class="text-yellow-500 font-bold mr-1">4.8</span>
+                            <div class="rating-stars mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm">(356)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-lg font-bold text-green-600">GRATIS</span>
+                            <button onclick="enrollCourse('Sistema de Gestión de Calidad ISO 9001:2015')" class="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-1 px-3 rounded transition">
+                                Inscribirse
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-overlay">
+                        <h4 class="font-bold text-lg mb-2">Sistema de Gestión de Calidad ISO 9001:2015</h4>
+                        <p class="text-sm mb-3">Duración: 6 semanas</p>
+                        <p class="text-sm mb-3">Preparación para auditorías</p>
+                        <ul class="text-sm list-disc pl-4 mb-4">
+                            <li>Requisitos de la norma</li>
+                            <li>Contexto de la organización</li>
+                            <li>Liderazgo y planificación</li>
+                            <li>Evaluación del desempeño</li>
+                            <li>Mejora continua</li>
+                        </ul>
+                        <button onclick="enrollCourse('Sistema de Gestión de Calidad ISO 9001:2015')" class="bg-white text-purple-600 font-medium py-2 px-4 rounded mt-auto">
+                            Inscribirse Gratis
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Course 10 - Implementación de SGC de Cero -->
+                <div class="course-card bg-white rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-32 bg-green-600 relative">
+                        <img src="images/image12.jpg" alt="Implementación de SGC de Cero" class="w-full h-full object-cover">
+                        <span class="badge badge-new absolute top-3 left-3">NUEVO</span>
+                        <span class="badge badge-free absolute top-3 right-3">GRATIS</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-2">Implementación de SGC de Cero</h3>
+                        <p class="text-sm text-gray-600 mb-3">Aprende a implementar un Sistema de Gestión de Calidad desde cero en cualquier organización.</p>
+                        <div class="flex items-center mb-2">
+                            <span class="text-yellow-500 font-bold mr-1">4.7</span>
+                            <div class="rating-stars mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm">(278)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-lg font-bold text-green-600">GRATIS</span>
+                            <button onclick="enrollCourse('Implementación de SGC de Cero')" class="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-1 px-3 rounded transition">
+                                Inscribirse
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-overlay">
+                        <h4 class="font-bold text-lg mb-2">Implementación de SGC de Cero</h4>
+                        <p class="text-sm mb-3">Duración: 10 semanas</p>
+                        <p class="text-sm mb-3">Proyecto práctico de implementación</p>
+                        <ul class="text-sm list-disc pl-4 mb-4">
+                            <li>Diagnóstico inicial</li>
+                            <li>Planificación del SGC</li>
+                            <li>Documentación del sistema</li>
+                            <li>Implementación y capacitación</li>
+                            <li>Auditoría interna</li>
+                        </ul>
+                        <button onclick="enrollCourse('Implementación de SGC de Cero')" class="bg-white text-purple-600 font-medium py-2 px-4 rounded mt-auto">
+                            Inscribirse Gratis
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Course 11 - Supervisor de Calidad -->
+                <div class="course-card bg-white rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-32 bg-yellow-600 relative">
+                        <img src="images/image13.webp" alt="Supervisor de Calidad" class="w-full h-full object-cover">
+                        <span class="badge badge-new absolute top-3 left-3">NUEVO</span>
+                        <span class="badge badge-free absolute top-3 right-3">GRATIS</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-2">Supervisor de Calidad</h3>
+                        <p class="text-sm text-gray-600 mb-3">Desarrolla habilidades de liderazgo y supervisión para equipos de calidad.</p>
+                        <div class="flex items-center mb-2">
+                            <span class="text-yellow-500 font-bold mr-1">4.6</span>
+                            <div class="rating-stars mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm">(189)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-lg font-bold text-green-600">GRATIS</span>
+                            <button onclick="enrollCourse('Supervisor de Calidad')" class="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-1 px-3 rounded transition">
+                                Inscribirse
+                            </button>
+                        </div>
+                    </div>
+                    <div class="course-overlay">
+                        <h4 class="font-bold text-lg mb-2">Supervisor de Calidad</h4>
+                        <p class="text-sm mb-3">Duración: 7 semanas</p>
+                        <p class="text-sm mb-3">Certificación en supervisión de calidad</p>
+                        <ul class="text-sm list-disc pl-4 mb-4">
+                            <li>Liderazgo de equipos</li>
+                            <li>Gestión del desempeño</li>
+                            <li>Comunicación efectiva</li>
+                            <li>Resolución de problemas</li>
+                            <li>Indicadores de gestión</li>
+                        </ul>
+                        <button onclick="enrollCourse('Supervisor de Calidad')" class="bg-white text-purple-600 font-medium py-2 px-4 rounded mt-auto">
+                            Inscribirse Gratis
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Validation Section -->
+    <section id="certificate-validation" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Validación de Certificados</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Verifica la autenticidad de tu certificado ingresando el código único de validación.</p>
+            </div>
+            
+            <div class="max-w-lg mx-auto bg-white rounded-xl shadow-md p-8" data-aos="fade-up">
+                <div class="mb-6">
+                    <label for="certificate-code" class="block text-gray-700 font-medium mb-2">Código del Certificado</label>
+                    <input type="text" id="certificate-code" placeholder="Ejemplo: 2020oy, 4534fc, 3864bj" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <button onclick="validateCertificate()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition">
+                    Validar Certificado
+                </button>
+                
+                <div id="validation-result" class="mt-6 p-4 rounded-lg hidden validation-result">
+                    <!-- Aquí se mostrará el resultado de la validación -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Test Section -->
+    <section id="career-test" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Test Vocacional</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Descubre qué curso se adapta mejor a tus intereses y habilidades profesionales.</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-md p-8" data-aos="fade-up">
+                <div id="test-intro" class="text-center">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">¿No sabes por dónde empezar?</h3>
+                    <p class="text-gray-600 mb-6">Responde estas preguntas para obtener recomendaciones personalizadas sobre qué cursos de NEXT TALENT ACADEMY se adaptan mejor a tus intereses y objetivos profesionales.</p>
+                    <button onclick="startTest()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition">
+                        Comenzar Test
+                    </button>
+                </div>
+                
+                <div id="test-container" class="hidden">
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">Progreso</span>
+                            <span id="progress-text" class="text-sm font-medium text-gray-700">1/5</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div id="progress-bar" class="bg-purple-600 h-2.5 rounded-full progress-bar" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="test-question" class="mb-6">
+                        <!-- Aquí se mostrarán las preguntas del test -->
+                    </div>
+                    
+                    <div id="test-options" class="space-y-3">
+                        <!-- Aquí se mostrarán las opciones de respuesta -->
+                    </div>
+                    
+                    <div class="mt-8 flex justify-between">
+                        <button id="prev-btn" onclick="prevQuestion()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition hidden">
+                            Anterior
+                        </button>
+                        <button id="next-btn" onclick="nextQuestion()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition ml-auto">
+                            Siguiente
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="test-results" class="hidden text-center">
+                    <!-- Aquí se mostrarán los resultados del test -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Section -->
+    <section id="certificate" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Certificación de Participación</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Al completar cualquiera de nuestros cursos, recibirás un certificado de participación que acredita tus conocimientos.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <div class="certificate-container">
+                        <div class="certificate-frame">
+                            <img src="images/certificado1.jpg" alt="Certificado de Participación" class="certificate-image">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2" data-aos="fade-left">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Beneficios de Nuestro Certificado</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-2 rounded-full mr-4 mt-1">
+                                <i class="fas fa-check text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1">Certificación Oficial</h4>
+                                <p class="text-gray-600">Recibe un certificado que valida tus conocimientos adquiridos.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-2 rounded-full mr-4 mt-1">
+                                <i class="fas fa-check text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1">Verificación Digital</h4>
+                                <p class="text-gray-600">Tu certificado incluye sistema de verificación en línea.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-2 rounded-full mr-4 mt-1">
+                                <i class="fas fa-check text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1">Formato Digital y Físico</h4>
+                                <p class="text-gray-600">Recibe tu certificado en formato digital y opción a impresión.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-2 rounded-full mr-4 mt-1">
+                                <i class="fas fa-check text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1">Mejora tu Currículum</h4>
+                                <p class="text-gray-600">Añade valor a tu perfil profesional con certificaciones especializadas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 bg-purple-50 p-6 rounded-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">¿Cómo obtener tu certificado?</h4>
+                        <ol class="list-decimal pl-5 text-gray-600 space-y-2">
+                            <li>Completa el 100% de las lecciones del curso</li>
+                            <li>Aprueba la evaluación final con calificación mínima de 80%</li>
+                            <li>Realiza el proyecto práctico (si aplica)</li>
+                            <li>Solicita tu certificado a través de la plataforma</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">¿Listo para comenzar?</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Contáctanos para obtener más información o inscribirte en nuestros cursos gratuitos</p>
+            </div>
+            
+            <div class="max-w-2xl mx-auto bg-purple-50 rounded-xl p-8" data-aos="fade-up">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Inscríbete Gratis</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Nombre completo</label>
+                        <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Correo electrónico</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 mb-2">Curso de interés</label>
+                    <select id="course-interest" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="">Selecciona un curso</option>
+                        <option value="Inspector de Calidad Certificado">Inspector de Calidad Certificado</option>
+                        <option value="Procesos de Manufactura">Procesos de Manufactura</option>
+                        <option value="Mantenimiento Autónomo">Mantenimiento Autónomo</option>
+                        <option value="Lean Six Sigma Green Belt">Lean Six Sigma Green Belt</option>
+                        <option value="5S y Gestión Visual">5S y Gestión Visual</option>
+                        <option value="Logística y Cadena de Suministro">Logística y Cadena de Suministro</option>
+                        <option value="Seguridad Industrial y Salud Ocupacional">Seguridad Industrial y Salud Ocupacional</option>
+                        <option value="Curso Intensivo de Calidad">Curso Intensivo de Calidad</option>
+                        <option value="Sistema de Gestión de Calidad ISO 9001:2015">Sistema de Gestión de Calidad ISO 9001:2015</option>
+                        <option value="Implementación de SGC de Cero">Implementación de SGC de Cero</option>
+                        <option value="Supervisor de Calidad">Supervisor de Calidad</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 mb-2">Mensaje (opcional)</label>
+                    <textarea id="message" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                </div>
+                <button onclick="sendToWhatsApp()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition pulse-animation">
+                    <i class="fab fa-whatsapp mr-2"></i> Enviar por WhatsApp
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-600 w-8 h-8 rounded-md flex items-center justify-center mr-2">
+                            <img src="images/logo1.png" alt="NEXT TALENT ACADEMY" class="logo-image">
+                        </div>
+                        <span class="text-xl font-bold">NEXT TALENT ACADEMY</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Especialistas en capacitación online para profesionales de la industria.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.instagram.com/NextTalentAcademy/" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Cursos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Control de Calidad</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Producción</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Mantenimiento</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Gestión Empresarial</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Empresa</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Nosotros</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Carreras</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contáctanos</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Soporte</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Centro de ayuda</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Términos de servicio</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Política de privacidad</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Preguntas frecuentes</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
+                <p>© 2023 NEXT TALENT ACADEMY. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/18099243085?text=Hola,%20estoy%20interesado%20en%20los%20cursos%20de%20NEXT%20TALENT%20ACADEMY" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition z-50" style="animation-duration: 2s;">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Function to scroll to contact section
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Function to enroll in a course
+        function enrollCourse(courseName) {
+            const message = `Hola, estoy interesado en inscribirme en el curso: ${courseName}. Por favor, proporcióneme más información.`;
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/18099243085?text=${encodedMessage}`, '_blank');
+        }
+
+        // Function to send form data to WhatsApp
+        function sendToWhatsApp() {
+            const name = document.getElementById('name').value || 'No proporcionado';
+            const email = document.getElementById('email').value || 'No proporcionado';
+            const course = document.getElementById('course-interest').value || 'No seleccionado';
+            const message = document.getElementById('message').value || 'Sin mensaje adicional';
+            
+            const fullMessage = `Hola, me interesa NEXT TALENT ACADEMY:%0A%0A*Nombre:* ${name}%0A*Email:* ${email}%0A*Curso de interés:* ${course}%0A*Mensaje:* ${message}`;
+            
+            window.open(`https://wa.me/18099243085?text=${fullMessage}`, '_blank');
+        }
+
+        // Certificate Validation System
+        function validateCertificate() {
+            const certificateCode = document.getElementById('certificate-code').value.trim();
+            const validationResult = document.getElementById('validation-result');
+            
+            // Lista de códigos válidos (puedes agregar más)
+            const validCodes = [
+        '2020oy', 
+        '4534fc', 
+        '3864bj', 
+        '1234ab', 
+        '2020mm',
+        '5923kt',
+        '1847ql',
+        '7602jp',
+        '9451hm',
+        '3278bw',
+        '6184zr',
+        '8025lk',
+        '4739md',
+        '2596vt',
+        '7314cp',
+        '5068rn',
+        '8942wf',
+        '1437tx',  // Este estaba en MAYÚSCULAS
+        '6205bl',
+        '9783hf',
+        '4321qm',
+        '5879jk',
+        '2153nv',
+        '7694pr',
+        '8416ds',
+        '3902wl',
+        '6547mc',
+        '7128fg',
+        '8261rb',
+        '9485kt',
+        '5319vl',
+        '2674xz',
+        '4896hq',
+        '7803jl',
+        '3245pm',
+        '6591tr',
+        '8127fw',
+        '2738kg',
+        '9415sd',
+        '5062qh',
+        '8759lm',
+        '1384wb',
+        '7642jp',
+        '2975cn',
+        '5806vk',
+        '4318mr',
+        '6297hf',
+        '7024bl',
+        '9135ft',
+        '2548dw',
+        '3876qk',
+        '8651lm',
+        '1749sp',
+        '9487hc',
+        '5362zr',
+
+'5678cd'];
+            
+            if (certificateCode === '') {
+                validationResult.innerHTML = `
+                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-yellow-800">Código requerido</h3>
+                                <div class="mt-2 text-sm text-yellow-700">
+                                    <p>Por favor, ingresa el código de tu certificado para validarlo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                validationResult.classList.remove('hidden');
+                return;
+            }
+            
+            if (validCodes.includes(certificateCode.toLowerCase())) {
+                validationResult.innerHTML = `
+                    <div class="valid-certificate p-4 rounded-lg">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle text-green-500"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-green-800">Certificado Válido</h3>
+                                <div class="mt-2 text-sm text-green-700">
+                                    <p>¡Felicidades! Tu certificado con código <strong>${certificateCode}</strong> es válido y está registrado en nuestro sistema.</p>
+                                    <p class="mt-1">Este certificado fue emitido por NEXT TALENT ACADEMY y acredita la finalización exitosa de uno de nuestros cursos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                validationResult.innerHTML = `
+                    <div class="invalid-certificate p-4 rounded-lg">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-times-circle text-red-500"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-red-800">Certificado Inválido</h3>
+                                <div class="mt-2 text-sm text-red-700">
+                                    <p>El código <strong>${certificateCode}</strong> no está registrado en nuestro sistema.</p>
+                                    <p class="mt-1">Por favor, verifica que hayas ingresado correctamente el código o contacta con nuestro equipo de soporte si crees que esto es un error.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            validationResult.classList.remove('hidden');
+        }
+
+        // Career Test System
+        let currentQuestion = 0;
+        let userAnswers = [];
+        
+        const testQuestions = [
+            {
+                question: "¿Qué tipo de actividades disfrutas más en tu trabajo?",
+                options: [
+                    { text: "Analizar datos y encontrar patrones", category: "calidad" },
+                    { text: "Optimizar procesos y mejorar la eficiencia", category: "produccion" },
+                    { text: "Resolver problemas técnicos y mantener equipos", category: "mantenimiento" },
+                    { text: "Coordinar equipos y gestionar proyectos", category: "gestion" }
+                ]
+            },
+            {
+                question: "¿En qué área te gustaría especializarte?",
+                options: [
+                    { text: "Garantizar que los productos cumplan con estándares", category: "calidad" },
+                    { text: "Mejorar la productividad y reducir costos", category: "produccion" },
+                    { text: "Prevenir fallas y extender la vida útil de equipos", category: "mantenimiento" },
+                    { text: "Liderar equipos y tomar decisiones estratégicas", category: "gestion" }
+                ]
+            },
+            {
+                question: "¿Qué habilidades consideras que son tus fortalezas?",
+                options: [
+                    { text: "Atención al detalle y pensamiento analítico", category: "calidad" },
+                    { text: "Pensamiento sistemático y mejora continua", category: "produccion" },
+                    { text: "Habilidades técnicas y resolución de problemas", category: "mantenimiento" },
+                    { text: "Comunicación efectiva y liderazgo", category: "gestion" }
+                ]
+            },
+            {
+                question: "¿Qué tipo de entorno laboral prefieres?",
+                options: [
+                    { text: "Laboratorio o área de control donde se verifiquen especificaciones", category: "calidad" },
+                    { text: "Planta de producción donde se optimicen procesos", category: "produccion" },
+                    { text: "Taller o área técnica donde se reparen equipos", category: "mantenimiento" },
+                    { text: "Oficina donde se coordinen actividades y equipos", category: "gestion" }
+                ]
+            },
+            {
+                question: "¿Cuál es tu objetivo profesional a largo plazo?",
+                options: [
+                    { text: "Convertirme en auditor o especialista en sistemas de calidad", category: "calidad" },
+                    { text: "Dirigir operaciones de producción o mejorar procesos", category: "produccion" },
+                    { text: "Ser responsable del mantenimiento de una planta o instalación", category: "mantenimiento" },
+                    { text: "Ocupar posiciones directivas o de supervisión", category: "gestion" }
+                ]
+            }
+        ];
+
+        const courseRecommendations = {
+            calidad: [
+                {
+                    name: "Inspector de Calidad Certificado",
+                    description: "Ideal para quienes disfrutan del análisis detallado y garantizar que los productos cumplan con especificaciones.",
+                    match: "Alta compatibilidad con tu perfil"
+                },
+                {
+                    name: "Sistema de Gestión de Calidad ISO 9001:2015",
+                    description: "Perfecto si te interesa implementar y auditar sistemas de calidad en organizaciones.",
+                    match: "Media compatibilidad con tu perfil"
+                },
+                {
+                    name: "Lean Six Sigma Green Belt",
+                    description: "Excelente opción para combinar habilidades de calidad con mejora de procesos.",
+                    match: "Media compatibilidad con tu perfil"
+                }
+            ],
+            produccion: [
+                {
+                    name: "Procesos de Manufactura",
+                    description: "Ideal para quienes buscan optimizar operaciones y mejorar la eficiencia productiva.",
+                    match: "Alta compatibilidad con tu perfil"
+                },
+                {
+                    name: "5S y Gestión Visual",
+                    description: "Perfecto si te interesa organizar espacios de trabajo y mejorar la productividad.",
+                    match: "Alta compatibilidad con tu perfil"
+                },
+                {
+                    name: "Logística y Cadena de Suministro",
+                    description: "Excelente para quienes disfrutan de la planificación y coordinación de operaciones.",
+                    match: "Media compatibilidad con tu perfil"
+                }
+            ],
+            mantenimiento: [
+                {
+                    name: "Mantenimiento Autónomo",
+                    description: "Ideal para quienes prefieren trabajar en la prevención y solución de problemas técnicos.",
+                    match: "Alta compatibilidad con tu perfil"
+                },
+                {
+                    name: "Seguridad Industrial y Salud Ocupacional",
+                    description: "Perfecto si te interesa garantizar condiciones seguras de trabajo.",
+                    match: "Media compatibilidad con tu perfil"
+                }
+            ],
+            gestion: [
+                {
+                    name: "Supervisor de Calidad",
+                    description: "Ideal para quienes aspiran a liderar equipos y gestionar sistemas de calidad.",
+                    match: "Alta compatibilidad con tu perfil"
+                },
+                {
+                    name: "Implementación de SGC de Cero",
+                    description: "Perfecto para quienes disfrutan de proyectos desafiantes y gestión de cambios.",
+                    match: "Alta compatibilidad con tu perfil"
+                },
+                {
+                    name: "Curso Intensivo de Calidad",
+                    description: "Excelente para obtener una visión integral de la gestión de calidad.",
+                    match: "Media compatibilidad con tu perfil"
+                }
+            ]
+        };
+
+        function startTest() {
+            document.getElementById('test-intro').classList.add('hidden');
+            document.getElementById('test-container').classList.remove('hidden');
+            showQuestion(0);
+        }
+
+        function showQuestion(questionIndex) {
+            currentQuestion = questionIndex;
+            const question = testQuestions[questionIndex];
+            const questionElement = document.getElementById('test-question');
+            const optionsElement = document.getElementById('test-options');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            
+            // Actualizar progreso
+            const progress = ((questionIndex + 1) / testQuestions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `${questionIndex + 1}/${testQuestions.length}`;
+            
+            // Mostrar pregunta
+            questionElement.innerHTML = `
+                <h3 class="text-xl font-bold text-gray-800 mb-4">${question.question}</h3>
+            `;
+            
+            // Mostrar opciones
+            optionsElement.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const isSelected = userAnswers[questionIndex] === index;
+                const optionElement = document.createElement('div');
+                optionElement.className = `test-option p-4 border rounded-lg ${isSelected ? 'selected border-purple-500' : 'border-gray-300'}`;
+                optionElement.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center mr-3 ${isSelected ? 'bg-purple-500 border-purple-500' : ''}">
+                            ${isSelected ? '<i class="fas fa-check text-white text-xs"></i>' : ''}
+                        </div>
+                        <span class="text-gray-700">${option.text}</span>
+                    </div>
+                `;
+                optionElement.addEventListener('click', () => selectOption(questionIndex, index));
+                optionsElement.appendChild(optionElement);
+            });
+            
+            // Mostrar/ocultar botones de navegación
+            document.getElementById('prev-btn').classList.toggle('hidden', questionIndex === 0);
+            document.getElementById('next-btn').textContent = questionIndex === testQuestions.length - 1 ? 'Ver resultados' : 'Siguiente';
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            userAnswers[questionIndex] = optionIndex;
+            showQuestion(questionIndex);
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                showQuestion(currentQuestion - 1);
+            }
+        }
+
+        function nextQuestion() {
+            if (userAnswers[currentQuestion] === undefined) {
+                alert('Por favor, selecciona una opción antes de continuar.');
+                return;
+            }
+            
+            if (currentQuestion < testQuestions.length - 1) {
+                showQuestion(currentQuestion + 1);
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            // Calcular categoría predominante
+            const categoryCount = {
+                calidad: 0,
+                produccion: 0,
+                mantenimiento: 0,
+                gestion: 0
+            };
+            
+            userAnswers.forEach((answer, index) => {
+                const category = testQuestions[index].options[answer].category;
+                categoryCount[category]++;
+            });
+            
+            // Encontrar la categoría con más respuestas
+            let predominantCategory = 'calidad';
+            let maxCount = 0;
+            
+            for (const category in categoryCount) {
+                if (categoryCount[category] > maxCount) {
+                    maxCount = categoryCount[category];
+                    predominantCategory = category;
+                }
+            }
+            
+            // Mostrar resultados
+            document.getElementById('test-container').classList.add('hidden');
+            document.getElementById('test-results').classList.remove('hidden');
+            
+            const resultsElement = document.getElementById('test-results');
+            const recommendations = courseRecommendations[predominantCategory];
+            
+            let resultsHTML = `
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Resultados de tu Test Vocacional</h3>
+                <p class="text-gray-600 mb-6">Basado en tus respuestas, hemos identificado que tu perfil se alinea mejor con el área de <strong>${getCategoryName(predominantCategory)}</strong>.</p>
+                
+                <div class="bg-purple-50 p-6 rounded-lg mb-8">
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">Recomendaciones de Cursos</h4>
+                    <div class="space-y-6">
+            `;
+            
+            recommendations.forEach(course => {
+                resultsHTML += `
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <h5 class="font-bold text-gray-800 mb-2">${course.name}</h5>
+                        <p class="text-gray-600 text-sm mb-2">${course.description}</p>
+                        <span class="inline-block bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">${course.match}</span>
+                    </div>
+                `;
+            });
+            
+            resultsHTML += `
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="restartTest()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition">
+                        Volver a realizar el test
+                    </button>
+                    <a href="#courses" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition text-center">
+                        Ver todos los cursos
+                    </a>
+                </div>
+            `;
+            
+            resultsElement.innerHTML = resultsHTML;
+        }
+
+        function getCategoryName(category) {
+            const categoryNames = {
+                calidad: "Control de Calidad",
+                produccion: "Producción",
+                mantenimiento: "Mantenimiento",
+                gestion: "Gestión Empresarial"
+            };
+            return categoryNames[category] || category;
+        }
+
+        function restartTest() {
+            currentQuestion = 0;
+            userAnswers = [];
+            document.getElementById('test-results').classList.add('hidden');
+            document.getElementById('test-container').classList.remove('hidden');
+            showQuestion(0);
+        }
+    </script>
+</body>
+</html>
